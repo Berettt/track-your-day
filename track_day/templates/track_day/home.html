@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Track your day</title>
+
+	<style>
+		body{
+			text-align: center;
+
+		}
+
+		#cele{
+			width: 200px;
+			height: 728px;
+			float: left;
+		}
+
+		.cel{
+			border: 2px solid black;
+			width: 196px;
+			height: 360px;
+
+		}
+
+		nav{
+			border: 2px solid black;
+			width: 1260px;
+			height: 50px;
+			float: left;
+
+		}
+
+		main{
+			width: 1460px;
+			height: 724px;
+			border: 2px solid black;
+
+		}
+
+		.err{
+			color: red;
+			font-size: xx-large;
+			font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+		}
+	</style>
+</head>
+<body>
+	<div id="cele">
+		<div class="cel">
+			<h2>Tasks for today</h2>
+			<ol>
+			{% for n in data %}
+			<h4><li><a href='day\{{n.id}}'>{{n}}</a></li></h4>
+			{% endfor %}
+		    </ol>
+		</div>
+		<div class="cel">
+			<h2>Previous tasks</h2>
+			{% for n in deleted %}
+			<h3>{{n}}</h3>
+			{% endfor %}
+		</div>
+	</div>
+	<nav>
+		{% if user.is_authenticated %}
+		<h1>Hello {{user}}</h1>
+		{% else %}
+		<h1>Hello Anonymous</h1>
+		{% endif %}
+	</nav>
+	<main>
+		{% if user.is_authenticated %}
+		<h2>Customise your day</h2>
+		<form method="POST" action="day">
+			{% csrf_token %}
+			<input type="submit" value="Lets Go!">
+		</form>
+		{% else %}
+		<br><br><br><br><br><br>
+		<p class="err">Please log in to use the app!</p>
+		<form method="POST" action="login">
+			<input type="submit" value="Log in" >
+	    </form>
+		<br>
+		<form method="POST" action="register">
+			<input type="submit" value="Register" >
+	    </form>
+		{% endif %}
+	</main>
+</body>
+</html>

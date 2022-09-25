@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<h1>Add tasks yo your day!</h1>
+
+	<form method="POST">
+
+	    {% csrf_token %}
+
+		Tasks active: {{task_count}}
+		<br>
+		All tasks:
+		<br>
+		{% if task_count > 0 %}
+		{% for t in data %}
+		<br>
+		Task : {{t}}
+		{% endfor %}
+		{% else %}
+		Unfortunately you have no tasks yet!
+		{% endif %}
+
+		<br><br>
+
+	</form>
+
+
+	<form method="GET" action="create_day/add_task">
+
+	    {% csrf_token %}
+		<br>
+		Add more tasks
+		<br>
+		<input type="submit" value="Add">
+    	<br><br>
+	</form>
+	
+
+	<form method="GET" action="create_day/delete_task">
+
+		{% csrf_token %}
+		<br>
+		Task finished?
+		<br>
+		<input type="submit" value="Delete task">
+		<br><br>
+	</form>
+	<form action="home">
+		<br><br>
+		
+		<input type="submit" value="Go to the main page">
+		
+
+	</form>
+	
+</body>
+</html>
